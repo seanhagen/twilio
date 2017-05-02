@@ -90,6 +90,3 @@ implemented Short Codes and Transcriptions at this time among a few others.
 
 Other features are implemented but they are not fully tested.
 
-License
-=======
-Released under MIT license. See LICENSE file.
