@@ -32,12 +32,14 @@ type TwilioResponse struct {
 	Status                ResponseStatus
 }
 
+// ResponseStatus is the status of the request and the API
 type ResponseStatus struct {
 	Http   int
 	Twilio int
 	//HttpStr  string
 }
 
+// ExceptionResponse is what will be returned if there's an issue with a request
 type ExceptionResponse struct {
 	Code     int
 	Message  string
