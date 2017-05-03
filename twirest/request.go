@@ -28,6 +28,23 @@ type CreateIncomingPhoneNumber struct {
 	SMSApplicationSid    string `SmsApplicationSid=`
 }
 
+// AvailablePhoneNumbers is a list of currently available phone numbers for a country
+type AvailablePhoneNumbers struct {
+	resource                      uri    `/AvailablePhoneNumbers`
+	CountryCode                   string // Such as 'CA' for Canada, 'US' for the United States, etc
+	Type                          string // Can be 'Local', 'TollFree', or 'Mobile'
+	AreaCode                      string `AreaCode=`
+	Contains                      string `Contains=`
+	SmsEnabled                    string `SmsEnabled=`
+	MmsEnabled                    string `MmsEnabled=`
+	VoiceEnabled                  string `VoiceEnabled=`
+	FaxEnabled                    string `FaxEnabled=`
+	ExcludeAllAddressRequired     string `ExcludeAllAddressRequired=`
+	ExcludeLocalAddressRequired   string `ExcludeLocalAddressRequired=`
+	ExcludeForeignAddressRequired string `ExcludeForeignAddressRequired=`
+	Beta                          string `Beta=`
+}
+
 // Request a list of the account resources
 type Accounts struct {
 	FriendlyName string `FriendlyName=`
