@@ -11,6 +11,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -42,13 +43,13 @@ func NewClient(accountSid, authToken string) *TwilioClient {
 // Request makes a REST resource or action request from twilio servers and
 // returns the response. The type of request is determined by the request
 // struct supplied.
-func (twiClient *TwilioClient) Request(reqStruct interface{}) (
+func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 	TwilioResponse, error) {
 
 	twiResp := TwilioResponse{}
 
 	// setup a POST/GET/DELETE http request from request struct
-	httpReq, err := httpRequest(reqStruct, twiClient.accountSid)
+	httpReq, err := httpRequest(reqStruct, twiClient.accountSid, logit)
 	if err != nil {
 		return twiResp, err
 	}
@@ -68,6 +69,10 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}) (
 	body, _ := ioutil.ReadAll(response.Body)
 	response.Body.Close()
 
+	if logit {
+		log.Printf("got body:\n\n%v\n\n", string(body))
+	}
+
 	// parse xml response into twilioResponse struct
 	xml.Unmarshal(body, &twiResp)
 
@@ -86,7 +91,7 @@ func exceptionToErr(twir TwilioResponse) (code int, err error) {
 
 // httpRequest creates a http REST request from the supplied request struct
 // and the account Sid
-func httpRequest(reqStruct interface{}, accountSid string) (
+func httpRequest(reqStruct interface{}, accountSid string, logit bool) (
 	httpReq *http.Request, err error) {
 
 	url, err := urlString(reqStruct, accountSid)
@@ -102,12 +107,15 @@ func httpRequest(reqStruct interface{}, accountSid string) (
 		if queryStr != "" {
 			url = url + "?" + queryStr
 		}
+		if logit {
+			log.Printf("making twilio GET request to url: %v", url)
+		}
 		httpReq, err = http.NewRequest("GET", url, nil)
 	// DELETE query method
 	case DeleteNotification, DeleteOutgoingCallerId,
 		DeleteRecording, DeleteParticipant, DeleteQueue:
-		if queryStr != "" {
-			url = url + "?" + queryStr
+		if logit {
+			log.Printf("making twilio DELETE request to url: %v", url)
 		}
 		httpReq, err = http.NewRequest("DELETE", url, nil)
 	// POST query method
@@ -115,6 +123,9 @@ func httpRequest(reqStruct interface{}, accountSid string) (
 		DeQueue, UpdateParticipant, UpdateOutgoingCallerId,
 		AddOutgoingCallerId:
 		requestBody := strings.NewReader(queryStr)
+		if logit {
+			log.Printf("making twilio POST request to url: %v with body: %#v", url, queryStr)
+		}
 		httpReq, err = http.NewRequest("POST", url, requestBody)
 
 	}
