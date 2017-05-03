@@ -122,13 +122,11 @@ func httpRequest(reqStruct interface{}, accountSid string, logit bool) (
 	// POST query method
 	case SendMessage, MakeCall, ModifyCall, CreateQueue, ChangeQueue,
 		DeQueue, UpdateParticipant, UpdateOutgoingCallerId,
-		AddOutgoingCallerId:
-		requestBody := strings.NewReader(queryStr)
+		CreateIncomingPhoneNumber, AddOutgoingCallerId:
 		if logit {
 			log.Printf("making twilio POST request to url: %v with body: %#v", url, queryStr)
 		}
 		httpReq, err = http.NewRequest("POST", url, requestBody)
-
 	}
 
 	return httpReq, err
@@ -142,7 +140,8 @@ func queryString(reqSt interface{}) (qryStr string) {
 	default:
 	case SendMessage, Messages, MakeCall, Calls, ModifyCall, Accounts,
 		Notifications, OutgoingCallerIds, Recordings, UsageRecords,
-		CreateQueue, ChangeQueue, DeQueue, Conferences, Participants:
+		CreateQueue, ChangeQueue, DeQueue, CreateIncomingPhoneNumber,
+		Conferences, Participants, AvailablePhoneNumbers:
 		for i := 0; i < reflect.ValueOf(reqSt).NumField(); i++ {
 			fld := reflect.ValueOf(reqSt).Type().Field(i)
 			val := reflect.ValueOf(reqSt).Field(i).String()
