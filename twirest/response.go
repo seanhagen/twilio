@@ -11,6 +11,7 @@ type TwilioResponse struct {
 	Conferences           *ConferencesResponse           `xml:"Conferences"`
 	Conference            *ConferenceResponse            `xml:"Conference"`
 	Exception             *ExceptionResponse             `xml:"RestException"`
+	IncomingPhoneNumbers  *IncomingPhoneNumbersResponse  `xml:"IncomingPhoneNumbers`
 	IncomingPhoneNumber   *IncomingPhoneNumberResponse   `xml:"IncomingPhoneNumber"`
 	Messages              *MessagesResponse              `xml:"Messages"`
 	Message               *MessageResponse               `xml:"Message"`
@@ -162,6 +163,11 @@ type ConferenceResponse struct {
 
 type ConferenceSubUris struct {
 	Participants string
+}
+
+type IncomingPhoneNumbersResponse struct {
+	Page
+	IncomingPhoneNumbers []IncomingPhoneNumbersResponse
 }
 
 type IncomingPhoneNumberResponse struct {

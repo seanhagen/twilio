@@ -5,6 +5,14 @@ package twirest
 type uri struct {
 }
 
+// IncomingPhoneNumberList is for checking to see what phone numbers are currently associated with
+// the account (see: https://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-get)
+type IncomingPhoneNumberList struct {
+	resource     uri    `/IncomingPhoneNumbers`
+	PhoneNumber  string `PhoneNumber=`
+	FriendlyName string `FriendlyName=`
+}
+
 // CreateIncomingPhoneNumber is how to purchase a phone number in Twilio. Important: ONLY ONE of the two
 // fields should be set (see: https://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post)
 type CreateIncomingPhoneNumber struct {
