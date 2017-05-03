@@ -5,6 +5,29 @@ package twirest
 type uri struct {
 }
 
+// CreateIncomingPhoneNumber is how to purchase a phone number in Twilio. Important: ONLY ONE of the two
+// fields should be set (see: https://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post)
+type CreateIncomingPhoneNumber struct {
+	resource             uri    `/IncomingPhoneNumbers`
+	PhoneNumber          string `PhoneNumber=`
+	AreaCode             string `AreaCode=`
+	FriendlyName         string `FriendlyName=`
+	VoiceURL             string `VoiceUrl=`
+	VoiceMethod          string `VoiceMethod=`
+	VoiceFallbackURL     string `VoiceFallbackUrl=`
+	VoiceFallbackMethod  string `VoiceFallbackMethod=`
+	StatusCallback       string `StatusCallback=`
+	StatusCallbackMethod string `StatusCallbackMethod=`
+	VoiceCallerIDLookup  string `VoiceCallerIdLookup=`
+	VoiceApplicationSid  string `VoiceApplicationSid=`
+	TrunkSid             string `TrunkSid=`
+	SMSUrl               string `SmsUrl=`
+	SMSMethod            string `SmsMethod=`
+	SMSFallbackURL       string `SmsFallbackUrl=`
+	SMSFallbackMethod    string `SmsFallbackMethod=`
+	SMSApplicationSid    string `SmsApplicationSid=`
+}
+
 // Request a list of the account resources
 type Accounts struct {
 	FriendlyName string `FriendlyName=`
