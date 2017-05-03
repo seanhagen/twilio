@@ -88,6 +88,29 @@ type AccountSubUris struct {
 	SMSMessages           string
 }
 
+type AvailablePhoneNumbersResponse struct {
+	URI                   string                 `xml:"uri,attr"`
+	AvailablePhoneNumbers []AvailablePhoneNumber `xml:",any"`
+}
+
+type AvailablePhoneNumber struct {
+	FriendlyName        string
+	PhoneNumber         string
+	Lata                string
+	RateCenter          string
+	Latitude            string
+	Longitude           string
+	Region              string
+	PostalCode          string
+	IsoCountry          string
+	AddressRequirements string
+	Beta                string
+	Voice               string `xml:"Capabilities>Voice"`
+	SMS                 string `xml:"Capabilities>SMS"`
+	MMS                 string `xml:"Capabilities>MMS"`
+	Fax                 string `xml:"Capabilities>Fax"`
+}
+
 type CallsResponse struct {
 	Page
 	Call []CallResponse
@@ -139,6 +162,35 @@ type ConferenceResponse struct {
 
 type ConferenceSubUris struct {
 	Participants string
+}
+
+type IncomingPhoneNumberResponse struct {
+	Sid                  string
+	AccountSid           string
+	FriendlyName         string
+	PhoneNumber          string
+	VoiceUrl             string
+	VoiceMethod          string
+	VoiceFallbackUrl     string
+	VoiceFallbackMethod  string
+	StatusCallback       string
+	StatusCallbackMethod string
+	VoiceCallerIdLookup  string
+	VoiceApplicationSid  string
+	DateCreated          string
+	DateUpdated          string
+	SmsUrl               string
+	SmsMethod            string
+	SmsFallbackUrl       string
+	SmsFallbackMethod    string
+	SmsApplicationSid    string
+	Voice                string `xml:"Capabilities>Voice"`
+	SMS                  string `xml:"Capabilities>SMS"`
+	MMS                  string `xml:"Capabilities>MMS"`
+	Fax                  string `xml:"Capabilities>Fax"`
+	Beta                 string
+	ApiVersion           string
+	Uri                  string
 }
 
 type MessagesResponse struct {
