@@ -32,16 +32,6 @@ type TwilioClient struct {
 
 // Create a new client
 func NewClient(accountSid, authToken string) *TwilioClient {
-	// certPool := x509.NewCertPool()
-	// pemFile, err := os.Open("cacert.pem")
-	// if err != nil {
-	// 	err = fmt.Errorf("Using host's root CA\n\t%s", err)
-	// 	certPool = nil
-	// } else {
-	// 	defer pemFile.Close()
-	// 	bytes, _ := ioutil.ReadAll(pemFile)
-	// 	certPool.AppendCertsFromPEM(bytes)
-	// }
 	tr := &http.Transport{TLSClientConfig: &tls.Config{RootCAs: nil},
 		DisableCompression: true}
 	client := &http.Client{Transport: tr}
