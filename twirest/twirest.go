@@ -100,6 +100,7 @@ func httpRequest(reqStruct interface{}, accountSid string, logit bool) (
 	}
 
 	queryStr := queryString(reqStruct)
+	requestBody := strings.NewReader(queryStr)
 
 	switch reqStruct.(type) {
 	// GET query method
@@ -117,7 +118,7 @@ func httpRequest(reqStruct interface{}, accountSid string, logit bool) (
 		if logit {
 			log.Printf("making twilio DELETE request to url: %v", url)
 		}
-		httpReq, err = http.NewRequest("DELETE", url, nil)
+		httpReq, err = http.NewRequest("DELETE", url, requestBody)
 	// POST query method
 	case SendMessage, MakeCall, ModifyCall, CreateQueue, ChangeQueue,
 		DeQueue, UpdateParticipant, UpdateOutgoingCallerId,
