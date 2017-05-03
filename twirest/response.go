@@ -3,30 +3,32 @@ package twirest
 // TwilioResponse holds one possible resource/response depending on type of
 // request plus a Status struct.
 type TwilioResponse struct {
-	Accounts          *AccountsResponse          `xml:"Accounts"`
-	Account           *AccountResponse           `xml:"Account"`
-	Calls             *CallsResponse             `xml:"Calls"`
-	Call              *CallResponse              `xml:"Call"`
-	Conferences       *ConferencesResponse       `xml:"Conferences"`
-	Conference        *ConferenceResponse        `xml:"Conference"`
-	Exception         *ExceptionResponse         `xml:"RestException"`
-	Messages          *MessagesResponse          `xml:"Messages"`
-	Message           *MessageResponse           `xml:"Message"`
-	Notifications     *NotificationsResponse     `xml:"Notifications"`
-	Notification      *NotificationResponse      `xml:"Notification"`
-	OutgoingCallerIds *OutgoingCallerIdsResponse `xml:"OutgoingCallerIds"`
-	OutgoingCallerId  *OutgoingCallerIdResponse  `xml:"OutgoingCallerId"`
-	Participants      *ParticipantsResponse      `xml:"Participants"`
-	Participant       *ParticipantResponse       `xml:"Participant"`
-	Recordings        *RecordingsResponse        `xml:"Recordings"`
-	Recording         *RecordingResponse         `xml:"Recording"`
-	Queues            *QueuesResponse            `xml:"Queues"`
-	Queue             *QueueResponse             `xml:"Queue"`
-	QueueMembers      *QueueMembersResponse      `xml:"QueueMembers"`
-	QueueMember       *QueueMemberResponse       `xml:"QueueMember"`
-	UsageRecords      *UsageRecordsResponse      `xml:"UsageRecords"`
-	ValidationRequest *ValidationRequestResponse `xml:"ValidationRequest"`
-	Status            ResponseStatus
+	Accounts              *AccountsResponse              `xml:"Accounts"`
+	Account               *AccountResponse               `xml:"Account"`
+	AvailablePhoneNumbers *AvailablePhoneNumbersResponse `xml:"AvailablePhoneNumbers"`
+	Calls                 *CallsResponse                 `xml:"Calls"`
+	Call                  *CallResponse                  `xml:"Call"`
+	Conferences           *ConferencesResponse           `xml:"Conferences"`
+	Conference            *ConferenceResponse            `xml:"Conference"`
+	Exception             *ExceptionResponse             `xml:"RestException"`
+	IncomingPhoneNumber   *IncomingPhoneNumberResponse   `xml:"IncomingPhoneNumber"`
+	Messages              *MessagesResponse              `xml:"Messages"`
+	Message               *MessageResponse               `xml:"Message"`
+	Notifications         *NotificationsResponse         `xml:"Notifications"`
+	Notification          *NotificationResponse          `xml:"Notification"`
+	OutgoingCallerIds     *OutgoingCallerIdsResponse     `xml:"OutgoingCallerIds"`
+	OutgoingCallerId      *OutgoingCallerIdResponse      `xml:"OutgoingCallerId"`
+	Participants          *ParticipantsResponse          `xml:"Participants"`
+	Participant           *ParticipantResponse           `xml:"Participant"`
+	Recordings            *RecordingsResponse            `xml:"Recordings"`
+	Recording             *RecordingResponse             `xml:"Recording"`
+	Queues                *QueuesResponse                `xml:"Queues"`
+	Queue                 *QueueResponse                 `xml:"Queue"`
+	QueueMembers          *QueueMembersResponse          `xml:"QueueMembers"`
+	QueueMember           *QueueMemberResponse           `xml:"QueueMember"`
+	UsageRecords          *UsageRecordsResponse          `xml:"UsageRecords"`
+	ValidationRequest     *ValidationRequestResponse     `xml:"ValidationRequest"`
+	Status                ResponseStatus
 }
 
 type ResponseStatus struct {
