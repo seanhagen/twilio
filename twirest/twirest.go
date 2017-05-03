@@ -196,6 +196,13 @@ func urlString(reqStruct interface{}, accSid string) (url string, err error) {
 	// Request cases with additional/optional resources added
 	switch reqSt := reqStruct.(type) {
 	default:
+	case AvailablePhoneNumbers:
+		if reqSt.CountryCode != "" {
+			url = fmt.Sprintf("%v/%v", url, reqSt.CountryCode)
+		}
+		if reqSt.Type != "" {
+			url = fmt.Sprintf("%v/%v", url, reqSt.Type)
+		}
 	case Message:
 		if reqSt.Media == true {
 			url = url + "/Media"
