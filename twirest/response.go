@@ -167,7 +167,7 @@ type ConferenceSubUris struct {
 
 type IncomingPhoneNumbersResponse struct {
 	Page
-	IncomingPhoneNumbers []IncomingPhoneNumbersResponse
+	IncomingPhoneNumbers []IncomingPhoneNumberResponse
 }
 
 type IncomingPhoneNumberResponse struct {
