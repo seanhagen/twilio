@@ -42,6 +42,7 @@ type ResponseStatus struct {
 // ExceptionResponse is what will be returned if there's an issue with a request
 type ExceptionResponse struct {
 	Code     int
+	Detail   string
 	Message  string
 	MoreInfo string
 	Status   string
