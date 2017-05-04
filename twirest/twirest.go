@@ -54,6 +54,9 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 		return twiResp, err
 	}
 	// add authentication and headers to the http request
+	if logit {
+		log.Printf("Setting basic auth to username %#v, password %#v", twiClient.accountSid, twiClient.authToken)
+	}
 	httpReq.SetBasicAuth(twiClient.accountSid, twiClient.authToken)
 	httpReq.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Set("Accept", "*/*")
