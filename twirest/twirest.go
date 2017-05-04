@@ -27,17 +27,40 @@ const (
 
 // TwilioClient struct for holding a http client and user credentials
 type TwilioClient struct {
-	httpclient            *http.Client
-	accountSid, authToken string
+	httpclient *http.Client
+	accountSid string
+	authUser   string
+	authToken  string
 }
 
-// Create a new client
-func NewClient(accountSid, authToken string) *TwilioClient {
-	tr := &http.Transport{TLSClientConfig: &tls.Config{RootCAs: nil},
-		DisableCompression: true}
+// Create a new client. With two arguments, it's assumed you're passing AccountSID & AuthToken.
+// With three arguments, it's assumed the first is the AccountSID, the second is APIKeySID,
+// and the third is APIKeyToken. This is done so that you can use API keys with the client -- AccountSID
+// is always required, as it becomes part of the URL that is built to make requests of the API.
+func NewClient(authBits ...string) (*TwilioClient, error) {
+	tr := &http.Transport{
+		TLSClientConfig:    &tls.Config{RootCAs: nil},
+		DisableCompression: true,
+	}
 	client := &http.Client{Transport: tr}
 
-	return &TwilioClient{client, accountSid, authToken}
+	if len(authBits) <= 1 || len(authBits) > 3 {
+		return nil, fmt.Errorf("2 or 3 arguments only")
+	}
+
+	c := TwilioClient{
+		httpclient: client,
+		accountSid: authBits[0],
+	}
+
+	if len(authBits) == 2 {
+		c.authToken = authBits[1]
+	} else {
+		c.authUser = authBits[1]
+		c.authToken = authBits[2]
+	}
+
+	return &c, nil
 }
 
 // Request makes a REST resource or action request from twilio servers and
@@ -57,7 +80,13 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 	if logit {
 		log.Printf("Setting basic auth to username %#v, password %#v", twiClient.accountSid, twiClient.authToken)
 	}
-	httpReq.SetBasicAuth(twiClient.accountSid, twiClient.authToken)
+
+	if twiClient.authUser != "" {
+		httpReq.SetBasicAuth(twiClient.authUser, twiClient.authToken)
+	} else {
+		httpReq.SetBasicAuth(twiClient.accountSid, twiClient.authToken)
+	}
+
 	httpReq.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Set("Accept", "*/*")
 
