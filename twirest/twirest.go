@@ -83,8 +83,8 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 // exceptiontToErr converts a Twilio response exception (if any) to a go error
 func exceptionToErr(twir TwilioResponse) (code int, err error) {
 	if twir.Exception != nil {
-		return twir.Exception.Code, fmt.Errorf("%s",
-			twir.Exception.Message)
+		return twir.Exception.Code, fmt.Errorf("%s (%s)",
+			twir.Exception.Detail, twir.Exception.MoreInfo)
 	}
 	return
 }
