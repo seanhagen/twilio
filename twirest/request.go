@@ -86,22 +86,23 @@ type Call struct {
 
 // Request to make a phone call
 type MakeCall struct {
-	resource             uri    `/Calls`
-	From                 string `From=`
-	To                   string `To=`
-	Url                  string `Url=`
-	ApplicationSid       string `ApplicationSid=`
-	Method               string `Method=`
-	FallbackUrl          string `FallbackUrl=`
-	FallbackMethod       string `FallbackMethod=`
-	StatusCallback       string `StatusCallback=`
-	StatusCallbackMethod string `StatusCallbackMethod=`
-	SendDigits           string `SendDigits=`
-	IfMachine            string `IfMachine=`
-	Timeout              string `Timeout=`
-	Record               string `Record=`
-	SipAuthUsername      string `SipAuthUsername=`
-	SipAuthPassword      string `SipAuthPassword=`
+	resource             uri      `/Calls`
+	From                 string   `From=`
+	To                   string   `To=`
+	Url                  string   `Url=`
+	ApplicationSid       string   `ApplicationSid=`
+	Method               string   `Method=`
+	FallbackUrl          string   `FallbackUrl=`
+	FallbackMethod       string   `FallbackMethod=`
+	StatusCallback       string   `StatusCallback=`
+	StatusCallbackEvents []string `StatusCallbackEvent=`
+	StatusCallbackMethod string   `StatusCallbackMethod=`
+	SendDigits           string   `SendDigits=`
+	IfMachine            string   `IfMachine=`
+	Timeout              string   `Timeout=`
+	Record               string   `Record=`
+	SipAuthUsername      string   `SipAuthUsername=`
+	SipAuthPassword      string   `SipAuthPassword=`
 }
 
 // Request to modify call in queue/progress

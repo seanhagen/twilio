@@ -183,6 +183,15 @@ func queryString(reqSt interface{}) (qryStr string) {
 				qryStr += string(fld.Tag) +
 					url.QueryEscape(val) + "&"
 			}
+
+			if fld.Type.Kind() == reflect.Slice {
+				v2 := reflect.ValueOf(reqSt).Field(i).Interface().([]string)
+				if string(fld.Tag) != "" && len(v2) > 0 {
+					for _, v := range v2 {
+						qryStr += string(fld.Tag) + url.QueryEscape(v) + "&"
+					}
+				}
+			}
 		}
 		// remove the last '&' if we created a query string
 		if len(qryStr) > 0 {
@@ -261,6 +270,15 @@ func urlString(reqStruct interface{}, accSid string) (url string, err error) {
 	}
 
 	return url, err
+}
+
+func stringIn(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
 }
 
 // check that string(s) is(are) not empty, return error otherwise
