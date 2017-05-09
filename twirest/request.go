@@ -98,7 +98,7 @@ type MakeCall struct {
 	StatusCallbackEvents []string `StatusCallbackEvent=`
 	StatusCallbackMethod string   `StatusCallbackMethod=`
 	SendDigits           string   `SendDigits=`
-	IfMachine            string   `IfMachine=`
+	MachineDetection     string   `MachineDetection=`
 	Timeout              string   `Timeout=`
 	Record               string   `Record=`
 	SipAuthUsername      string   `SipAuthUsername=`
