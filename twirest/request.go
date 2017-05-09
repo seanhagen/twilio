@@ -102,6 +102,7 @@ type MakeCall struct {
 	MachineDetectionTimeout string   `MachineDetectionTimeout=`
 	Timeout                 string   `Timeout=`
 	Record                  string   `Record=`
+	RecordingChannels       string   `RecordingChannels=`
 	SipAuthUsername         string   `SipAuthUsername=`
 	SipAuthPassword         string   `SipAuthPassword=`
 }
