@@ -64,7 +64,7 @@ type Account struct {
 	Sid string
 }
 
-// Request list of calls made to and from account
+// Calls - Request list of calls made to and from account
 type Calls struct {
 	resource        uri    `/Calls`
 	To              string `To=`
@@ -76,7 +76,7 @@ type Calls struct {
 	ParentCallSid   string `ParentCallSid=`
 }
 
-// Request call information about a single call
+// Call - Request call information about a single call
 type Call struct {
 	resource      uri    `/Calls`
 	Sid           string // CallSid
@@ -84,7 +84,7 @@ type Call struct {
 	Notifications bool
 }
 
-// Request to make a phone call
+// MakeCall - Request to make a phone call
 type MakeCall struct {
 	resource                uri      `/Calls`
 	From                    string   `From=`
