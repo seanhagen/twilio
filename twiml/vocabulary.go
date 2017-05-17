@@ -5,7 +5,7 @@ import "encoding/xml"
 type Client struct {
 	XMLName xml.Name `xml:"Client"`
 	Method  string   `xml:"method,attr,omitempty"`
-	Url     string   `xml:"URL,omitempty"`
+	Url     string   `xml:"Url,omitempty"`
 	Name    string   `xml:",chardata"`
 }
 
@@ -31,7 +31,7 @@ type Dial struct {
 	CallerId                      string   `xml:"callerId,attr,omitempty"`
 	Record                        bool     `xml:"record,attr,omitempty"`
 	RecordingStatusCallback       string   `xml:"recordingStatusCallback,attr,omitempty"`
-	RecordingStatusCallbackMethod string   `xml:"recordingStatusCallbackMethod,attr,omitempty`
+	RecordingStatusCallbackMethod string   `xml:"recordingStatusCallbackMethod,attr,omitempty"`
 	Number                        string   `xml:",chardata"`
 	Nested                        []interface{}
 }
@@ -40,8 +40,8 @@ type Enqueue struct {
 	XMLName       xml.Name `xml:"Enqueue"`
 	Action        string   `xml:"action,attr,omitempty"`
 	Method        string   `xml:"method,attr,omitempty"`
-	WaitUrl       string   `xml:"waiUrl,attr,omitempty"`
-	WaitUrlMethod string   `xml:"waiUrlMethod,attr,omitempty"`
+	WaitUrl       string   `xml:"waitUrl,attr,omitempty"`
+	WaitUrlMethod string   `xml:"waitUrlMethod,attr,omitempty"`
 	Name          string   `xml:",chardata"`
 }
 
