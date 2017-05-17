@@ -22,16 +22,18 @@ type Conference struct {
 }
 
 type Dial struct {
-	XMLName      xml.Name `xml:"Dial"`
-	Action       string   `xml:"action,attr,omitempty"`
-	Method       string   `xml:"method,attr,omitempty"`
-	Timeout      int      `xml:"timeout,attr,omitempty"`
-	HangupOnStar bool     `xml:"hangupOnStar,attr,omitempty"`
-	TimeLimit    int      `xml:"timeLimit,attr,omitempty"`
-	CallerId     string   `xml:"callerId,attr,omitempty"`
-	Record       bool     `xml:"record,attr,omitempty"`
-	Number       string   `xml:",chardata"`
-	Nested       []interface{}
+	XMLName                       xml.Name `xml:"Dial"`
+	Action                        string   `xml:"action,attr,omitempty"`
+	Method                        string   `xml:"method,attr,omitempty"`
+	Timeout                       int      `xml:"timeout,attr,omitempty"`
+	HangupOnStar                  bool     `xml:"hangupOnStar,attr,omitempty"`
+	TimeLimit                     int      `xml:"timeLimit,attr,omitempty"`
+	CallerId                      string   `xml:"callerId,attr,omitempty"`
+	Record                        bool     `xml:"record,attr,omitempty"`
+	RecordingStatusCallback       string   `xml:"recordingStatusCallback,attr,omitempty"`
+	RecordingStatusCallbackMethod string   `xml:"recordingStatusCallbackMethod,attr,omitempty`
+	Number                        string   `xml:",chardata"`
+	Nested                        []interface{}
 }
 
 type Enqueue struct {
