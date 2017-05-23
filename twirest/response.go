@@ -328,13 +328,18 @@ type RecordingsResponse struct {
 
 type RecordingResponse struct {
 	Sid         string
-	DateCreated string
-	DateUpdated string
 	AccountSid  string
 	CallSid     string
-	ApiVersion  string
-	Uri         string
 	Duration    string
+	DateCreated string
+	ApiVersion  string
+	DateUpdated string
+	Status      string
+	Source      string
+	Channels    string
+	Price       string
+	PriceUnit   string
+	Uri         string
 }
 
 type UsageRecordsResponse struct {
