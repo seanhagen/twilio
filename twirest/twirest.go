@@ -237,6 +237,10 @@ func urlString(reqStruct interface{}, accSid string) (url string, err error) {
 	// Request cases with additional/optional resources added
 	switch reqSt := reqStruct.(type) {
 	default:
+	case Recording:
+		if !reqSt.GetRecording {
+			url += ".json"
+		}
 	case AvailablePhoneNumbers:
 		if reqSt.CountryCode != "" {
 			url = fmt.Sprintf("%v/%v", url, reqSt.CountryCode)

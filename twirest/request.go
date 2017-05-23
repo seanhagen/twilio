@@ -268,8 +268,9 @@ type Recordings struct {
 
 // Request resource for an individual recording
 type Recording struct {
-	resource uri    `/Recordings`
-	Sid      string // RecordingSid
+	resource     uri    `/Recordings`
+	Sid          string // RecordingSid
+	GetRecording bool
 }
 
 // Delete a recording
