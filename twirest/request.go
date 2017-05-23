@@ -271,6 +271,7 @@ type Recording struct {
 	resource     uri    `/Recordings`
 	Sid          string // RecordingSid
 	GetRecording bool
+	GetMP3       bool
 }
 
 // Delete a recording
