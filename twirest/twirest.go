@@ -239,7 +239,7 @@ func urlString(reqStruct interface{}, accSid string) (url string, err error) {
 	default:
 	case Recording:
 		if !reqSt.GetRecording {
-			url += ".json"
+			url += ".xml"
 		}
 		if reqSt.GetRecording && reqSt.GetMP3 {
 			url += ".mp3"
