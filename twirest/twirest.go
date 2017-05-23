@@ -10,6 +10,7 @@ import (
 	//"crypto/x509"
 	"encoding/xml"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -61,6 +62,23 @@ func NewClient(authBits ...string) (*TwilioClient, error) {
 	}
 
 	return &c, nil
+}
+
+func (twiClient *TwilioClient) Do(method, url string, body io.Reader) (*http.Response, error) {
+	httpReq, err := http.NewRequest(method, url, body)
+	if err != nil {
+		return nil, err
+	}
+
+	if twiClient.authUser != "" {
+		httpReq.SetBasicAuth(twiClient.authUser, twiClient.authToken)
+	} else {
+		httpReq.SetBasicAuth(twiClient.accountSid, twiClient.authToken)
+	}
+	httpReq.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	httpReq.Header.Set("Accept", "*/*")
+
+	return twiClient.httpclient.Do(httpReq)
 }
 
 // Request makes a REST resource or action request from twilio servers and
