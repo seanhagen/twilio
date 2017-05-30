@@ -119,6 +119,14 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 	body, _ := ioutil.ReadAll(response.Body)
 	response.Body.Close()
 
+	format := response.Header.Get("Content-Type")
+	if format != "" && (format == "mp3" || format == "wav") {
+		twiResp.RecordingAudio = &RecordingAudio{
+			Data: body,
+		}
+		return twiResp, err
+	}
+
 	if logit {
 		log.Printf("got body:\n\n%v\n\n", string(body))
 	}
