@@ -29,6 +29,7 @@ type TwilioResponse struct {
 	QueueMember           *QueueMemberResponse           `xml:"QueueMember"`
 	UsageRecords          *UsageRecordsResponse          `xml:"UsageRecords"`
 	ValidationRequest     *ValidationRequestResponse     `xml:"ValidationRequest"`
+	RecordingAudio        *RecordingAudio
 	Status                ResponseStatus
 }
 
@@ -340,6 +341,10 @@ type RecordingResponse struct {
 	Price       string
 	PriceUnit   string
 	Uri         string
+}
+
+type RecordingAudio struct {
+	Data []byte
 }
 
 type UsageRecordsResponse struct {
