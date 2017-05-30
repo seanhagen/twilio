@@ -1,7 +1,10 @@
 package twirest
 
 import (
+	"fmt"
 	"io"
+	"net/http"
+	"strconv"
 )
 
 // TwilioResponse holds one possible resource/response depending on type of
@@ -37,6 +40,10 @@ type TwilioResponse struct {
 	Status                ResponseStatus
 }
 
+func (tr TwilioResponse) OK() bool {
+	return tr.Status.OK()
+}
+
 // ResponseStatus is the status of the request and the API
 type ResponseStatus struct {
 	Http   int
@@ -44,13 +51,38 @@ type ResponseStatus struct {
 	//HttpStr  string
 }
 
+func (rs ResponseStatus) OK() bool {
+	switch rs.Http {
+	case http.StatusOK, http.StatusCreated, http.StatusAccepted,
+		http.StatusNonAuthoritativeInfo, http.StatusNoContent,
+		http.StatusResetContent, http.StatusPartialContent, http.StatusMultiStatus,
+		http.StatusAlreadyReported, http.StatusIMUsed:
+		return true
+	}
+
+	return false
+}
+
 // ExceptionResponse is what will be returned if there's an issue with a request
 type ExceptionResponse struct {
-	Code     int
-	Detail   string
-	Message  string
-	MoreInfo string
-	Status   string
+	Code       int
+	Detail     string
+	Message    string
+	MoreInfo   string
+	Status     string
+	StatusCode int
+}
+
+func (er *ExceptionResponse) Error() string {
+	return fmt.Sprintf("%s (%s)", er.Message, er.MoreInfo)
+}
+
+func (er *ExceptionResponse) Parse() {
+	i, err := strconv.Atoi(er.Status)
+	if err == nil && i > 0 {
+		er.Status = http.StatusText(i)
+		er.StatusCode = i
+	}
 }
 
 type Page struct {

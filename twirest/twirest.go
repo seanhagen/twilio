@@ -130,12 +130,16 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 		log.Printf("got body:\n\n%v\n\n", string(body))
 	}
 
+	// don't try to parse XML that isn't there ( delete requests return no content )
+	if isDeleteRequest(reqStruct) && twiResp.OK() {
+		return twiResp, err
+	}
+
 	// parse xml response into twilioResponse struct
 	err = xml.Unmarshal(body, &twiResp)
 	if err != nil {
 		return twiResp, err
 	}
-
 	twiResp.Status.Twilio, err = exceptionToErr(twiResp)
 	return twiResp, err
 }
@@ -143,10 +147,20 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 // exceptiontToErr converts a Twilio response exception (if any) to a go error
 func exceptionToErr(twir TwilioResponse) (code int, err error) {
 	if twir.Exception != nil {
-		return twir.Exception.Code, fmt.Errorf("%s (%s)",
-			twir.Exception.Detail, twir.Exception.MoreInfo)
+		twir.Exception.Parse()
+		return twir.Exception.Code, twir.Exception
 	}
 	return
+}
+
+func isDeleteRequest(reqStruct interface{}) bool {
+	switch reqStruct.(type) {
+	case DeleteNotification, DeleteOutgoingCallerId,
+		DeleteRecording, DeleteParticipant, DeleteQueue:
+		return true
+	}
+
+	return false
 }
 
 // httpRequest creates a http REST request from the supplied request struct
