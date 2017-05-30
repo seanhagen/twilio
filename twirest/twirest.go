@@ -259,8 +259,12 @@ func urlString(reqStruct interface{}, accSid string) (url string, err error) {
 		if !reqSt.GetRecording {
 			url += ".xml"
 		}
-		if reqSt.GetRecording && reqSt.GetMP3 {
-			url += ".mp3"
+		if reqSt.GetRecording {
+			if reqSt.GetMP3 {
+				url += ".mp3"
+			} else {
+				url += ".wav"
+			}
 		}
 	case AvailablePhoneNumbers:
 		if reqSt.CountryCode != "" {
