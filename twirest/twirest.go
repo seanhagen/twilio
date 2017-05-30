@@ -120,15 +120,15 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 	response.Body.Close()
 
 	format := response.Header.Get("Content-Type")
-	if format != "" && (format == "mp3" || format == "wav") {
+	if format == "audio/mpeg" || format == "audio/x-wav" {
 		twiResp.RecordingAudio = &RecordingAudio{
 			Data: body,
 		}
 		return twiResp, err
-	} else {
-		if logit {
-			log.Printf("got body:\n\n%v\n\n", string(body))
-		}
+	}
+
+	if logit {
+		log.Printf("got body:\n\n%v\n\n", string(body))
 	}
 
 	// parse xml response into twilioResponse struct
