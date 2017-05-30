@@ -125,14 +125,17 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 			Data: body,
 		}
 		return twiResp, err
-	}
-
-	if logit {
-		log.Printf("got body:\n\n%v\n\n", string(body))
+	} else {
+		if logit {
+			log.Printf("got body:\n\n%v\n\n", string(body))
+		}
 	}
 
 	// parse xml response into twilioResponse struct
-	xml.Unmarshal(body, &twiResp)
+	err = xml.Unmarshal(body, &twiResp)
+	if err != nil {
+		return twiResp, err
+	}
 
 	twiResp.Status.Twilio, err = exceptionToErr(twiResp)
 	return twiResp, err
