@@ -1,5 +1,9 @@
 package twirest
 
+import (
+	"io"
+)
+
 // TwilioResponse holds one possible resource/response depending on type of
 // request plus a Status struct.
 type TwilioResponse struct {
@@ -344,7 +348,7 @@ type RecordingResponse struct {
 }
 
 type RecordingAudio struct {
-	Data []byte
+	Data io.ReadCloser
 }
 
 type UsageRecordsResponse struct {

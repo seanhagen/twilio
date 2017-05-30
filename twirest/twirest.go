@@ -116,17 +116,16 @@ func (twiClient *TwilioClient) Request(reqStruct interface{}, logit bool) (
 	// Save http status code to response struct
 	twiResp.Status.Http = response.StatusCode
 
-	body, _ := ioutil.ReadAll(response.Body)
-	response.Body.Close()
-
 	format := response.Header.Get("Content-Type")
 	if format == "audio/mpeg" || format == "audio/x-wav" {
 		twiResp.RecordingAudio = &RecordingAudio{
-			Data: body,
+			Data: response.Body,
 		}
 		return twiResp, err
 	}
 
+	body, _ := ioutil.ReadAll(response.Body)
+	response.Body.Close()
 	if logit {
 		log.Printf("got body:\n\n%v\n\n", string(body))
 	}
